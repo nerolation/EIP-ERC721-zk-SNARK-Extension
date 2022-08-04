@@ -14,7 +14,6 @@ template Main(n) {
     signal input R8x;
     signal input R8y;
     signal input S;
-    signal input owner;
     signal input tokenId;
     signal input secret;
     signal input stealthAddrBytes;
@@ -23,10 +22,11 @@ template Main(n) {
 
     var i;
     
-    component stealth = MiMCSponge(3, 220, 1);
-    stealth.ins[0] <== owner;
-    stealth.ins[1] <== tokenId;
-    stealth.ins[2] <== secret;
+    component stealth = MiMCSponge(4, 220, 1);
+    stealth.ins[0] <== pubkey[0][0];
+    stealth.ins[1] <== pubkey[1][0];
+    stealth.ins[2] <== tokenId;
+    stealth.ins[3] <== secret;
     stealth.k <== 0;
     log(stealth.outs[0]);
     
